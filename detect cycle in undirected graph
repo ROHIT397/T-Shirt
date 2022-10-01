@@ -1,0 +1,43 @@
+bool BFS(int i,vector<bool> &vis,vector<int> adj[])
+     {
+      vis[i]=true;
+      queue<int> q;
+      q.push(i);
+      map<int,int> mp;
+      mp[i]=-1;
+      while(q.size()>0)
+      {
+          int temp = q.front();
+          q.pop();
+          for(auto x: adj[temp])
+          {
+             if(vis[x]==false)
+             {
+                 vis[x]=true;
+                 mp[x] = temp;
+                 q.push(x);
+             }
+             else if( vis[i] == true && mp[x] != temp){
+                 return true;
+             }
+          }
+      }
+      return false;
+     }
+
+    // Function to detect cycle in an undirected graph.
+    bool isCycle(int V, vector<int> adj[]) {
+      vector<bool> vis(V,0);
+      for(int i=0;i<V;i++)
+      {
+          if(vis[i] == false)
+          {
+              if(BFS(i,vis,adj))
+              {
+                  return true;
+              }
+          }
+      }
+      return false;
+    }
+};
